@@ -10,6 +10,7 @@ package testworkWithoutBD;
  * @author ssspokd
  */
 public class Config {
+    // коля
     //Status Payment
     public  static String LimitIsExceeded = "require confirmation";
     public  static String LimitIsNotExceeded = "ready to host";
