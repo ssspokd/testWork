@@ -106,7 +106,7 @@ public class PaymentSystem {
         int a =  in.nextInt();  
             switch (a) {
                 case 1:
-                    ConfigureLimits.viewLimits(); 
+                    ViewerLimits.viewLimits(); 
                     break;
                 case 2:
                     System.out.println("Enter ID client");

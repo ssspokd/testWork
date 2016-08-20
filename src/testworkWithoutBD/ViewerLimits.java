@@ -9,7 +9,7 @@ package testworkWithoutBD;
  *
  * @author ssspokd
  */
-public class ConfigureLimits {
+public class ViewerLimits {
     public  static void viewLimits(){
         System.out.println("    1. Не более " + Config.FIRST_LIMIT_MAX_MONEY +" руб. днем с " +
                 Config.FIRST_LIMIT_START_DAY_HOURS  +":"+Config.FIRST_LIMIT_START_DAY_MINUTE+" утра до "+ Config.FIRST_LIMIT_END_DAY_HOURS +
