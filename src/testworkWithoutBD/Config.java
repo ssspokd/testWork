@@ -37,8 +37,8 @@ public class Config {
     public static   final int THIRD_LIMIT_COUNT_PAYMENT = 20;
     public static   final int THIRD_LIMIT_TIME = 24; //in  hours
     //fourth limit
-    public static    int FOURTH_LIMIT_MAX_MONEY = 3000;
-    public static    int FOURTH_LIMIT_TIME = 120; //in  minutes
-    public static    int FOURH_LIMIT_COUNT_PAYMENT = 10;  
+    public static   final int FOURTH_LIMIT_MAX_MONEY = 3000;
+    public static   final int FOURTH_LIMIT_TIME = 120; //in  minutes
+    public static   final int FOURH_LIMIT_COUNT_PAYMENT = 10;  
     
 }
