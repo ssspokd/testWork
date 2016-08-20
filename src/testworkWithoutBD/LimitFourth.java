@@ -23,7 +23,7 @@ public class LimitFourth extends Limits
         int countPayment = 0;
         int sumPay = 0; 
         for(Payment p : payments){
-            if(equalsTimePayments(currentTimeInMinute(), p))
+            if(equalsTimePayments(p))
                 {
                     countPayment++;
                     sumPay = sumPay + p.getSummPay();
@@ -32,9 +32,8 @@ public class LimitFourth extends Limits
         return(equalsCountSumPay(countPayment, sumPay)?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
     }
     
-    private boolean equalsTimePayments(int currentTimeInMinute, Payment p){
-        return ((currentTimeInMinute - getTimeInPayment(p) < Config.FOURTH_LIMIT_TIME)
-                    && equalsIDClient(p));
+    private boolean equalsTimePayments( Payment p){
+        return (TimeDifference(p) < Config.FOURTH_LIMIT_TIME && equalsIDClient(p));
     }
     
     

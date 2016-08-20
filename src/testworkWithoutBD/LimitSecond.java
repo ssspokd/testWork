@@ -22,7 +22,7 @@ public class LimitSecond  extends Limits
     protected String Validate() {
         int summ = 0;
         for(Payment p: payments){
-           if((currentTimeInMinute() - getTimeInPayment(p) ) < Config.SECOND_LIMIT_TIME){
+           if( TimeDifference(p) < Config.SECOND_LIMIT_TIME){
                summ = summ + p.getSummPay();
            }
         }

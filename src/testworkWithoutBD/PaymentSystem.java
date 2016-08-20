@@ -26,6 +26,8 @@ public class PaymentSystem {
     private int idPayment =  0;
     private final List<Payment> paymentsColl =  new ArrayList<>();
     private Service mobileService = null;
+    private final int increaseIdPayment = 1;
+    private final int lengMobileNumber = 10;
      
     
     public int getIdPayment() {
@@ -33,7 +35,7 @@ public class PaymentSystem {
     }
     
     private void setIdPayment(){
-         idPayment+=1;
+         idPayment+=increaseIdPayment;
     }
     
     public  void CreatePayment(String mobileNumber, int idClient,int sumPay){
@@ -78,7 +80,7 @@ public class PaymentSystem {
     private boolean validNumber(String mobilePhoneNumber){
         
         boolean isValid = false;        
-        if(mobilePhoneNumber.length() != 10){              
+        if(mobilePhoneNumber.length() != lengMobileNumber){              
                 isValid = false;
         }
         else if(isMobilePhoneNumber(mobilePhoneNumber))

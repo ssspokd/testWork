@@ -35,6 +35,6 @@ public  class LimitThird extends Limits
     }
     
     private boolean equalsNameServicePayment(Payment p){
-        return ( (p.getNameService().equals(payment.getNameService())));
+        return  (p.getNameService().equals(payment.getNameService()));
     }
 }

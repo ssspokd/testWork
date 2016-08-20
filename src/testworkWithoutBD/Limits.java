@@ -34,5 +34,11 @@ public abstract class Limits {
         return (p.getIdClient() == payment.getIdClient());
     }
     
+    protected int TimeDifference(Payment p){
+        return (currentTimeInMinute() - getTimeInPayment(p));
+    }
+    
     abstract protected String Validate();   
+    
+    
 }
