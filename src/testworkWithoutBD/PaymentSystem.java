@@ -104,6 +104,7 @@ public class PaymentSystem {
         }
         catch(Exception e){
                 System.out.println("Enter correct ID client");
+                System.out.println("Payment №" + idPayment +  " not created");
                 ret = -1;                  
         }       
         return ret;         
@@ -143,6 +144,7 @@ public class PaymentSystem {
         }
         catch(Exception e){
                 System.out.println("Enter correct sum pay");
+                System.out.println("Payment №" + idPayment +  " not created");
                 ret = -1;                  
         } 
         return ret;
