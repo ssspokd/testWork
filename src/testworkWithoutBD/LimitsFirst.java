@@ -24,7 +24,7 @@ public class LimitsFirst extends Limits
     @Override
     protected  String Validate(){
         
-        return ( equalsSumPay() && startTimeEquals()&&stopTimeEquals()?
+        return ( equalsSumPay() && startTimeEquals()&& stopTimeEquals()?
                 Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
     
