@@ -24,7 +24,7 @@ public  class LimitThird extends Limits
         for(Payment p: payments){
             if((p.getDatePayment().getDate() == payment.getDatePayment().getDate()) && 
                     (p.getIdClient() == payment.getIdClient()) &&
-                    (p.getNameService() == payment.getNameService())){
+                    (p.getNameService().equals(payment.getNameService()))){
                 countPayment++;
             }
         }
