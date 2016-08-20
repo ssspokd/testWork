@@ -6,13 +6,6 @@
 package testwork;
 
 import java.util.ArrayList;
-import testworkWithoutBD.LimitsFirst;
-import testworkWithoutBD.Limits;
-import testworkWithoutBD.PaymentSystem;
-import testworkWithoutBD.Payment;
-import testworkWithoutBD.ServiceBeeline;
-import testworkWithoutBD.Service;
-import testworkWithoutBD.LimitSecond;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;

@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testworkWithoutBD;
+package testwork;
 
 /**
  *
  * @author ssspokd
  */
-public class ServiceMTS extends Service
-{
-    public ServiceMTS(String nameService) {
+public class ServiceMegafon extends Service{
+    
+    public ServiceMegafon(String nameService) {
         super(nameService);
     }
-    
     @Override
     protected void paymentService() {
         System.out.println("payment is made, mobile operator " + super.getNameService());
