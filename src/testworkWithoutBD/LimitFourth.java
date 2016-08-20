@@ -33,8 +33,8 @@ public class LimitFourth extends Limits
     }
     
     private boolean equalsTimePayments(int currentTimeInMinute, Payment p){
-        return ((currentTimeInMinute -(p.getDatePayment().getHours()*Config.COUNT_MINUTE + p.getDatePayment().getMinutes()) < Config.FOURTH_LIMIT_TIME)
-                    && (p.getIdClient() == payment.getIdClient()));
+        return ((currentTimeInMinute - getTimeInPayment(p) < Config.FOURTH_LIMIT_TIME)
+                    && equalsIDClient(p));
     }
     
     

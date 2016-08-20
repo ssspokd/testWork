@@ -29,7 +29,5 @@ public class LimitSecond  extends Limits
          return (summ > Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
     }
     
-    private  int getTimeInPayment(Payment p){
-        return  p.getDatePayment().getHours()*Config.COUNT_MINUTE + p.getDatePayment().getMinutes();
-    }
+    
 }

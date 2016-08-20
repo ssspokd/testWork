@@ -34,10 +34,6 @@ public  class LimitThird extends Limits
         return (p.getDatePayment().getDate() == payment.getDatePayment().getDate());
     }
     
-    private boolean equalsIDClient(Payment p){
-        return (p.getIdClient() == payment.getIdClient());
-    }
-    
     private boolean equalsNameServicePayment(Payment p){
         return ( (p.getNameService().equals(payment.getNameService())));
     }

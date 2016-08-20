@@ -25,5 +25,14 @@ public abstract class Limits {
                 
     }
     
+    protected int getTimeInPayment(Payment p){
+        return  p.getDatePayment().getHours()*Config.COUNT_MINUTE +
+                p.getDatePayment().getMinutes();
+    }
+    
+    protected boolean equalsIDClient(Payment p){
+        return (p.getIdClient() == payment.getIdClient());
+    }
+    
     abstract protected String Validate();   
 }
