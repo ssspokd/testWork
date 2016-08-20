@@ -9,9 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -29,7 +27,6 @@ public class PaymentSystem {
     private final List<Payment> paymentsColl =  new ArrayList<>();
     private Service mobileService = null;
      
-   
     
     public int getIdPayment() {
         return idPayment;
@@ -98,6 +95,59 @@ public class PaymentSystem {
         System.out.println("3. Exit");
     }
    
+    private int getIdClient(Scanner in){
+        int ret = 0;
+        System.out.println("Enter ID client");
+        try{
+            Integer s =  new Integer(in.next());
+            ret = s;          
+        }
+        catch(Exception e){
+                System.out.println("Enter correct ID client");
+                ret = -1;                  
+        }       
+        return ret;         
+    }
+    
+    private String getMobileNumber()
+    {
+        String ret = "";
+        BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
+        System.out.println("Enter mobile number");
+        // ввод строки данных               
+        try{
+                String mobilePhoneNumber = bReader.readLine();
+                if(!validNumber(mobilePhoneNumber))
+                {
+                    System.out.println("Wrong number, the number should be 10 digits and contain only digits 0-9");
+                    System.out.println("Payment №" + idPayment +  " not created");
+                }  
+                else{
+                    ret = mobilePhoneNumber;
+                }
+        } catch (IOException ex)
+        {
+                        Logger.getLogger(PaymentSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        
+        return ret;
+    }
+    
+    public int getSumPay(Scanner in){
+        System.out.println("Enter sum payment");
+        int ret = 0;
+        
+        try{
+            Integer s =  new Integer(in.next());
+            ret = s;         
+        }
+        catch(Exception e){
+                System.out.println("Enter correct sum pay");
+                ret = -1;                  
+        } 
+        return ret;
+    }
+    
     public void start() throws IOException{
         Scanner in =  new Scanner(System.in);
         boolean stop = true;
@@ -109,41 +159,20 @@ public class PaymentSystem {
                     ViewerLimits.viewLimits(); 
                     break;
                 case 2:
-                    System.out.println("Enter ID client");
-                    int idClient = 0;
-                    try{
-                        Integer s =  new Integer(in.next());
-                        if(s.intValue() == s.shortValue()){
-                            idClient = s;
-                        }
-                        else{
-                            System.err.println("asdsa");
-                        }
-                    }
-                    catch(Exception e){
-                        System.out.println("Enter correct ID client");
-                        continue;
-                        
-                    }       
                     
-                    BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
-                    System.out.println("Enter mobile number");
-                    // ввод строки данных
-                    String mobilePhoneNumber = null;
-                    try{
-                        mobilePhoneNumber = bReader.readLine();
-                    } catch (IOException ex) {
-                        Logger.getLogger(PaymentSystem.class.getName()).log(Level.SEVERE, null, ex);
-                    }       
-                    if(!validNumber(mobilePhoneNumber))
-                    {
-                        System.out.println("Wrong number, the number should be 10 digits and contain only digits 0-9");
-                        System.out.println("Payment №" + idPayment +  " not created");
+                    int idClient = getIdClient(in);
+                    if(idClient == -1){
                         continue;
-                    }       
-                    WhoIsOperator(mobilePhoneNumber);
-                    System.out.println("Enter sum payment");
-                    int sumPay = in.nextInt();
+                    }                
+                    String mobilePhoneNumber = getMobileNumber();                    
+                    if(mobilePhoneNumber.isEmpty()){
+                        continue;
+                    }
+                    WhoIsOperator(mobilePhoneNumber);               
+                    int sumPay  = getSumPay(in);
+                    if(sumPay == -1){
+                        continue;
+                    }
                     CreatePayment(mobilePhoneNumber, idClient,sumPay);
                     break;
                 case 3:
