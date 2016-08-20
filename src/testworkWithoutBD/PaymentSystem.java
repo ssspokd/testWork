@@ -43,7 +43,7 @@ public class PaymentSystem {
         setIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
         paymentsColl.add(payment);
-        payment.setStatusPayment(validateForLimits(payment,new LimitsFirst(paymentsColl, payment)));      
+        payment.setStatusPayment(validateForLimits(payment,new LimitFourth(paymentsColl, payment)));      
         payment.Paying();  
                
     }

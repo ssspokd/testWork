@@ -22,11 +22,11 @@ public class LimitSecond  extends Limits
     protected String Validate() {
         int summ = 0;
         for(Payment p: payments){
-           if( TimeDifference(p) < Config.SECOND_LIMIT_TIME){
+           if(TimeDifference(p) < Config.SECOND_LIMIT_TIME){
                summ = summ + p.getSummPay();
            }
         }
-         return (summ > Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
+         return (summ <= Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
     }
     
     

@@ -23,22 +23,20 @@ public class LimitFourth extends Limits
         int countPayment = 0;
         int sumPay = 0; 
         for(Payment p : payments){
-            if(equalsTimePayments(p))
+            if(equalsTimePayments(p) && equalsIDClient(p))
                 {
                     countPayment++;
                     sumPay = sumPay + p.getSummPay();
                 }
             }
-        return(equalsCountSumPay(countPayment, sumPay)?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
+        return(equalsCountAnsSumPay(countPayment, sumPay)?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
     
-    private boolean equalsTimePayments( Payment p){
-        return (TimeDifference(p) < Config.FOURTH_LIMIT_TIME && equalsIDClient(p));
+    private boolean equalsTimePayments(Payment p){
+        return (TimeDifference(p) < Config.FOURTH_LIMIT_TIME);
     }
     
-    
-    
-    private boolean equalsCountSumPay(int countPayment, int sumPay)
+    private boolean equalsCountAnsSumPay(int countPayment, int sumPay)
     {
         return (countPayment > Config.FOURH_LIMIT_COUNT_PAYMENT || sumPay > Config.FOURTH_LIMIT_MAX_MONEY);
     }

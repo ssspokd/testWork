@@ -27,7 +27,7 @@ public  class LimitThird extends Limits
                 countPayment++;
             }
         }
-        return (countPayment > Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED); 
+        return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED); 
     }
     
     private boolean equalsDatePayment(Payment p){
