@@ -39,5 +39,6 @@ public class LimitsFirst extends Limits
     private boolean equalsSumPay(){
         return (payment.getSummPay() > Config.FIRST_LIMIT_MAX_MONEY);
     }
+    
 }
 
