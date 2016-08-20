@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21.08.2016 0:18:48 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="testWorkWithDB.DAO.Payments" table="PAYMENTS" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="service" class="testWorkWithDB.DAO.Service" fetch="select">
+            <column name="SERVICE_ID" not-null="true" />
+        </many-to-one>
+        <property name="clientId" type="int">
+            <column name="CLIENT_ID" not-null="true" />
+        </property>
+        <property name="sumPay" type="int">
+            <column name="SUM_PAY" not-null="true" />
+        </property>
+        <property name="datePayment" type="timestamp">
+            <column name="DATE_PAYMENT" length="19" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="25" not-null="true" />
+        </property>
+        <property name="mobileNumber" type="string">
+            <column name="MOBILE_NUMBER" length="11" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

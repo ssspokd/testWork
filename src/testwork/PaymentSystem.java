@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.hibernate.Session;
+import testWorkWithDB.DAO.Payments;
 
 /**
  *
@@ -43,10 +45,26 @@ public class PaymentSystem {
         setIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
         paymentsColl.add(payment);
-        payment.setStatusPayment(validateForLimits(payment,new LimitFourth(paymentsColl, payment)));      
+        payment.setStatusPayment(new LimitFourth(paymentsColl, payment).Validate());      
         payment.Paying();  
                
     }
+    public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
+        setIdPayment();
+        testWorkWithDB.DAO.Service service = new testWorkWithDB.DAO.Service();
+        Session session =  testWorkWithDB.HibernateUtils.getSessionFactory().openSession();
+        session.beginTransaction();
+        //List<testWorkWithDB.DAO.Service> res = session.createCriteria("select * from SERVICE where NAME_SERVICE = 'МТС'").list();
+        service.setId(1);
+        service.setNameService("МТС");
+        List<Payments> result =  session.createCriteria("Select * from PAYMENTS").list();
+        Payments payments =  new Payments(sumPay, service, idClient, 
+                sumPay, new Date(), mobileNumber, mobileNumber);
+        session.saveOrUpdate(payments);
+        session.getTransaction().commit();
+        int s = 0;
+    }
+    
     
     public String validateForLimits(Payment payment,Limits limit){
         return limit.Validate();
@@ -177,7 +195,7 @@ public class PaymentSystem {
                     if(sumPay == -1){
                         continue;
                     }
-                    CreatePayment(mobilePhoneNumber, idClient,sumPay);
+                    CreatePaymentDB(mobilePhoneNumber, idClient,sumPay);
                     break;
                 case 3:
                     stop = false;
