@@ -6,9 +6,7 @@
 package testwork;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -65,8 +63,7 @@ public class PaymentSystemTest {
         PaymentSystem instance = new PaymentSystem();
         int expResult = 0;
         int result = instance.getIdPayment();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.      
+        assertEquals(expResult, result);     
     }
 
 
@@ -80,7 +77,6 @@ public class PaymentSystemTest {
         Limits limit = new LimitsFirst(payments, payment);  
         String expResult = "ready to host";
         String result = instance.validateForLimits(payment, limit);
-        System.out.println(result);
         assertEquals(expResult, result);
         
            
@@ -93,7 +89,6 @@ public class PaymentSystemTest {
         String expResult = "ready to host";
         limit = new LimitSecond(payments, payment);             
         String result = instance.validateForLimits(payment, limit);
-        System.out.println(result);
         assertEquals(expResult, result);
            
     }
@@ -107,7 +102,6 @@ public class PaymentSystemTest {
         String result = instance.validateForLimits(payment, limit);
         limit = new LimitsFirst(payments, payment);
         result = instance.validateForLimits(payment, limit);
-        System.out.println(result);
         assertEquals(expResult, result);         
     }
 
