@@ -22,12 +22,20 @@ public  class LimitThird extends Limits
     protected String Validate() {
         int countPayment = 0;
         for(Payment p: payments){
-            if((p.getDatePayment().getDate() == payment.getDatePayment().getDate()) && 
-                    (p.getIdClient() == payment.getIdClient()) &&
-                    (p.getNameService().equals(payment.getNameService()))){
+            if(equalsDatePayment(p) && equalsIDClient(p)&&
+                    (p.getNameService().equals(payment.getNameService())))
+            {
                 countPayment++;
             }
         }
         return (countPayment > Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED); 
+    }
+    
+    private boolean equalsDatePayment(Payment p){
+        return (p.getDatePayment().getDate() == payment.getDatePayment().getDate());
+    }
+    
+    private boolean equalsIDClient(Payment p){
+        return (p.getIdClient() == payment.getIdClient());
     }
 }
