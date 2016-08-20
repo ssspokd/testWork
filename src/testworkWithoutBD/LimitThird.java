@@ -22,8 +22,7 @@ public  class LimitThird extends Limits
     protected String Validate() {
         int countPayment = 0;
         for(Payment p: payments){
-            if(equalsDatePayment(p) && equalsIDClient(p)&&
-                    (p.getNameService().equals(payment.getNameService())))
+            if(equalsDatePayment(p) && equalsIDClient(p)&& equalsNameServicePayment(p))
             {
                 countPayment++;
             }
@@ -37,5 +36,9 @@ public  class LimitThird extends Limits
     
     private boolean equalsIDClient(Payment p){
         return (p.getIdClient() == payment.getIdClient());
+    }
+    
+    private boolean equalsNameServicePayment(Payment p){
+        return ( (p.getNameService().equals(payment.getNameService())));
     }
 }
