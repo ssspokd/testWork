@@ -1,39 +1,26 @@
 package testWorkWithDB.Interfaces;
 
 
-import com.mchange.v1.db.sql.UnsupportedTypeException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import util.DAO;
 
 public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T> 
 {
 
     public static final int INTERVAL = 1;
-    private String tableName;
+    private final String tableName;
 
     public AbstractObjectDB(String tableName) {
         this.tableName = tableName;
     }
 
-    protected void clearTime(Calendar c) {
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-    }
-
-    protected boolean getBooleanFromInt(int number) {
-        if (number > 0) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean getBooleanFromInt(int number) {     
+        return (number > 0);
     }
 
     @Override
@@ -93,9 +80,9 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     @Override
     public T getObjectByID(long id) throws SQLException {
         T object = null;
-        Session session = null;
+        Session session = getSession();
         try {
-            session = getSession();
+  
             Query categoryQuery = getSession().createQuery(
                     " from " + tableName + " where ID = :id").setLong("id", id);          
             object = (T) categoryQuery.uniqueResult();
@@ -107,10 +94,9 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
 
     @Override
     public ArrayList<T> getAllObjects() throws SQLException {     
-        List<T> list   = null;
-        Session session = null;
-	try {
-            session = getSession();         
+        List<T> list   = new LinkedList<>();
+        Session session = getSession();
+	try {        
             list = session.createQuery("from " + tableName).list();         		    
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -8,9 +8,7 @@ package testWorkWithDB;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
@@ -36,7 +34,6 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
         if (instance == null) {
             instance = new PaymentsIMPL();
         }
-
         return instance;
     }
     

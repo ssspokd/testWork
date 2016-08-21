@@ -29,15 +29,13 @@ public class ServiceIMPl extends AbstractObjectDB<Service>
         if (instance == null) {
             instance = new ServiceIMPl();
         }
-
         return instance;
     }
     
     public Service getListService(int values){
-        Service ret = null;
-        Session session = null;
+        Service ret = new Service();
+        Session session = getSession();
         try{
-            session = getSession();
             session.getTransaction().begin();           
             Query categoryQuery  = session.createQuery("from Service where   :param1  >= min_value and :param1 < max_value").setInteger("param1", values);   
             session.getTransaction().commit();
