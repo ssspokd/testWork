@@ -44,6 +44,7 @@ public class PaymentSystem {
          idPayment+=increaseIdPayment;
     }
     
+    ///создание платёжного поручения, все платёжки хрантся в List
     public  void CreatePayment(String mobileNumber, int idClient,int sumPay){       
         setIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
@@ -54,23 +55,28 @@ public class PaymentSystem {
     public String validateForLimits(Payment payment,Limits limit){
         return limit.Validate();
     }
-    
+    ///реализованна возможность записи платёжных  поручений в БД
+    //
     public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
-        setIdPayment();
-        Service  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(Integer.valueOf(mobileNumber.substring(0, 3)));
-        Date currentDate = new Date();
-        String status = PaymentsIMPL.validateFirstLimit(sumPay,currentDate);
+        setIdPayment();     
+        Date currentDate = new Date();       
         Session session =  DAO.getSession();
         session.beginTransaction();     
-        Payments payments = new Payments(sumPay,serviceList,idClient, sumPay, currentDate, status, mobileNumber);
+        Payments payments = new Payments(sumPay,getService(mobileNumber),idClient, sumPay, currentDate, 
+                getStatusValidatedPayment(sumPay,currentDate), mobileNumber);
         session.save(payments);
         session.getTransaction().commit();
     }
+    private Service getService(String mobileNumber){
+        return testWorkWithDB.ServiceIMPl.getInstance().getListService(Integer.valueOf(mobileNumber.substring(0, 3)));
+    }
+    
+    private String getStatusValidatedPayment(int sumPay,Date currentDate){
+        return PaymentsIMPL.validateFirstLimit(sumPay,currentDate);
+    }
+    ////
     
     
-    
-    
-    // 
     public boolean isMobilePhoneNumber(String mobileNumber){        
         String reg = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
         Pattern p = Pattern.compile(reg);
@@ -156,8 +162,7 @@ public class PaymentSystem {
     
     public int getSumPay(Scanner in){
         System.out.println("Enter sum payment");
-        int ret = 0;
-        
+        int ret = 0;      
         try{
             Integer s =  new Integer(in.next());
             ret = s;         
