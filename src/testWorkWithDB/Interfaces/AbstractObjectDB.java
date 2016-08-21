@@ -1,6 +1,6 @@
 package testWorkWithDB.Interfaces;
 
-import Database.Interfaces.ObjectDB;
+
 import com.mchange.v1.db.sql.UnsupportedTypeException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,9 +38,8 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
 
     @Override
     public void UpdateObject(T t) throws SQLException {
-        Session session = null;
+        Session session = getSession();
 	try {
-            session = getSession();
             org.hibernate.Transaction tx  = beginTransaction();
             tx.begin();
             session.update(t);
@@ -48,19 +47,13 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
             } 
         catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-        finally{
-		    	if (session != null && session.isOpen()) {
-		    		//session.close();
-		    	}		    
-        }
+        }      
     }
 
     @Override
     public void UpdateOrInsertObject(T t) throws SQLException {
-        Session session = null;
+        Session session = getSession();
         try {
-            session = getSession();
             org.hibernate.Transaction tx  = beginTransaction();
             tx.begin();
             session.saveOrUpdate(t);
@@ -68,68 +61,34 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        finally 
-        {
-            if (session != null && session.isOpen()) {
-                // session.close();
-            }		    
-        }
     }
 
     @Override
     public void DeleteObject(T t) throws SQLException {
-        Session session = null;
-        try {
-            session = getSession();
+        Session session = getSession();
+        try {          
             org.hibernate.Transaction tx  = beginTransaction();
             tx.begin();
             session.delete(t);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally 
-        {
-            if (session != null && session.isOpen()) {
-                           // session.close();
-		    	}		    
-        }
+        }     
     }
     
     @Override
     public void insert(T t) throws SQLException {
-        Session session = null;
-	try {
-            session = getSession();
+        Session session = getSession();
+	try {         
             org.hibernate.Transaction tx  = beginTransaction();
             tx.begin();          
             session.save(t);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally 
-        {
-            if (session != null && session.isOpen()) {
-                //session.close();
-            }		    
-        }
+        }     
     }
 
-    @Override
-    public T executeObject(T t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<T> executeList(T t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public T fillObject(T t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public T getObjectByID(long id) throws SQLException {
@@ -147,8 +106,7 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     }
 
     @Override
-    public ArrayList<T> getAllObjects() throws SQLException {
-        //throw  new UnsupportedTypeException();
+    public ArrayList<T> getAllObjects() throws SQLException {     
         List<T> list   = null;
         Session session = null;
 	try {
