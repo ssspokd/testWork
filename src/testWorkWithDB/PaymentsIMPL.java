@@ -9,10 +9,13 @@ package testWorkWithDB;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import testWorkWithDB.Entity.Payments;
+import testWorkWithDB.Entity.Service;
 import testWorkWithDB.Interfaces.AbstractObjectDB;
 import util.Config;
+import static util.DAO.getSession;
 
 /**
  *
@@ -48,7 +51,7 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
     }
     
   
-
+    ///validate for first limit
     public static String  validateFirstLimit(int sum,Date date){
         return ( sum > Config.FIRST_LIMIT_MAX_MONEY && startTimeEquals(date)&& stopTimeEquals(date)?
                 Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
@@ -65,4 +68,27 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
         return (date.getHours() * Config.COUNT_MINUTE + date.getMinutes());             
     }
     
+    //validate for second limit
+    public static String  validateSecondLimit(int sum,Date date){
+        
+        String ret = null;
+        Session session = null;
+        try{
+            session = getSession();
+            session.getTransaction().begin();           
+            Date start_date = date;
+            date.setHours(date.getHours() -1);
+            Date end_date = date;
+            List<Payments> categoryQuery  = session.createQuery("from Payments where date(DATE_PAYMENT) BETWEEN  "
+                    + ":p1 AND :p2").setDate("p1",start_date)
+                    .setDate("p2", end_date).list();
+            session.getTransaction().commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            session.getTransaction().rollback();
+        }
+        return ret;
+    }
 }

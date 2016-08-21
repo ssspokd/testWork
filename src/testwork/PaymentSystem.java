@@ -59,14 +59,12 @@ public class PaymentSystem {
         setIdPayment();
         Service  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(222);
         Date currentDate = new Date();
-        String status = PaymentsIMPL.validateFirstLimit(sumPay, currentDate);
+        String status = PaymentsIMPL.validateSecondLimit(sumPay, currentDate);
         Session session =  DAO.getSession();
         session.beginTransaction();     
         Payments payments = new Payments(sumPay,serviceList,idClient, sumPay, currentDate, status, mobileNumber);
-        
         session.saveOrUpdate(payments);
         session.getTransaction().commit();
-        int s = 0;
     }
     
     

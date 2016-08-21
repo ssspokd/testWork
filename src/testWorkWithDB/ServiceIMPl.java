@@ -7,6 +7,7 @@ package testWorkWithDB;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import testWorkWithDB.Entity.Service;
 import testWorkWithDB.Interfaces.AbstractObjectDB;
@@ -36,11 +37,13 @@ public class ServiceIMPl extends AbstractObjectDB<Service>
     
     public Service getListService(int values){
         Service ret = null;
-        Session session = getSession();
+        Session session = null;
         try{
-            session.getTransaction().begin();
-            ret =  (Service) session.createCriteria("select * from SERVICE where   " + values + "  >= service.min_value and " +values+ " < service.max_value");   
+            session = getSession();
+            session.getTransaction().begin();           
+            Query categoryQuery  = session.createQuery("from Service where   :param1  >= min_value and :param1 < max_value").setInteger("param1", values);   
             session.getTransaction().commit();
+            ret = (Service) categoryQuery.uniqueResult();
         }
         catch(Exception e){
             System.out.println(e.toString());
