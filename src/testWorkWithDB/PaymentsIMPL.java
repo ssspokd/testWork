@@ -106,7 +106,8 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
     
     //validate for Third limit
     public static String validateThirdLimit(int idService){
-         List<Payments> res =  new LinkedList<>();
+        
+        List<Payments> res =  new LinkedList<>();
         Session session = null;
         try{
             session = getSession();
@@ -119,9 +120,8 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
             dateTime.plusHours(23);
             dateTime.plusMinutes(59);
             String date_end = dateTime.format(format);
-            Query categoryQuery  = session.createQuery("from Payments  join  service on payments.service_id = service.id "
-                    + " where service.id = " + idService  + " and " 
-                    
+            Query categoryQuery  = session.createSQLQuery("from Payments  join  service on payments.service_id = service.id "
+                    + " where service.id = " + idService  + " and "                   
                     + " DATE_PAYMENT > '" +date_start+"' and DATE_PAYMENT < '"+ date_end+"'");
             session.getTransaction().commit();
             res = categoryQuery.list();           
@@ -130,6 +130,6 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
             System.out.println(e.toString());
             session.getTransaction().rollback();
         }
-        return (sumPay(res)>Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
+        return (res.size()>Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
 }
