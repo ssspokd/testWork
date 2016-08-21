@@ -119,9 +119,10 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
             dateTime.plusHours(23);
             dateTime.plusMinutes(59);
             String date_end = dateTime.format(format);
-            Query categoryQuery  = session.createQuery("select * from payments  join  service on payments.service_id = service.id "
-                    + " where service.id = " + idService                  
-                    + "DATE_PAYMENT > '" +date_start+"' and DATE_PAYMENT < '"+ date_end+"'");
+            Query categoryQuery  = session.createQuery("from Payments  join  service on payments.service_id = service.id "
+                    + " where service.id = " + idService  + " and " 
+                    
+                    + " DATE_PAYMENT > '" +date_start+"' and DATE_PAYMENT < '"+ date_end+"'");
             session.getTransaction().commit();
             res = categoryQuery.list();           
         }
@@ -130,6 +131,5 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
             session.getTransaction().rollback();
         }
         return (sumPay(res)>Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
-    
     }
 }
