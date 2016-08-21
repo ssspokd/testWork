@@ -57,13 +57,13 @@ public class PaymentSystem {
     
     public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
         setIdPayment();
-        Service  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(222);
+        Service  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(Integer.valueOf(mobileNumber.substring(0, 3)));
         Date currentDate = new Date();
-        String status = PaymentsIMPL.validateSecondLimit(sumPay, currentDate);
+        String status = PaymentsIMPL.validateThirdLimit(serviceList.getId()); //validateSecondLimit(sumPay, currentDate);
         Session session =  DAO.getSession();
         session.beginTransaction();     
         Payments payments = new Payments(sumPay,serviceList,idClient, sumPay, currentDate, status, mobileNumber);
-        session.saveOrUpdate(payments);
+        session.save(payments);
         session.getTransaction().commit();
     }
     

@@ -6,13 +6,16 @@
 package testWorkWithDB;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import testWorkWithDB.Entity.Payments;
-import testWorkWithDB.Entity.Service;
 import testWorkWithDB.Interfaces.AbstractObjectDB;
 import util.Config;
 import static util.DAO.getSession;
@@ -71,24 +74,62 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
     //validate for second limit
     public static String  validateSecondLimit(int sum,Date date){
         
-        String ret = null;
+        List<Payments> res =  new LinkedList<>();
         Session session = null;
         try{
             session = getSession();
             session.getTransaction().begin();           
-            Date start_date = date;
-            date.setHours(date.getHours() -1);
-            Date end_date = date;
-            List<Payments> categoryQuery  = session.createQuery("from Payments where date(DATE_PAYMENT) BETWEEN  "
-                    + ":p1 AND :p2").setDate("p1",start_date)
-                    .setDate("p2", end_date).list();
-            session.getTransaction().commit();
             
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
+            String date_end = dateTime.format(format); 
+            String date_start = dateTime.minusHours(1).format(format);    
+            
+            Query categoryQuery  = session.createQuery("from Payments  where "
+                    + "DATE_PAYMENT > '"+date_start+"' and DATE_PAYMENT < '"+date_end+"'");
+            session.getTransaction().commit();
+            res = categoryQuery.list();           
         }
         catch(Exception e){
             System.out.println(e.toString());
             session.getTransaction().rollback();
         }
+        return (sumPay(res)>Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
+    }
+    private static int sumPay(List<Payments> payments){
+        int ret = 0;
+        for(Payments p: payments){
+            ret = ret + p.getSumPay();
+        }   
         return ret;
+    }
+    
+    //validate for Third limit
+    public static String validateThirdLimit(int idService){
+         List<Payments> res =  new LinkedList<>();
+        Session session = null;
+        try{
+            session = getSession();
+            session.getTransaction().begin();                
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter  format = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");   
+            dateTime.minusHours(dateTime.getHour()).format(format);    
+            dateTime.minusMinutes(dateTime.getMinute());
+            String date_start = dateTime.format(format); 
+            dateTime.plusHours(23);
+            dateTime.plusMinutes(59);
+            String date_end = dateTime.format(format);
+            Query categoryQuery  = session.createQuery("select * from payments  join  service on payments.service_id = service.id "
+                    + " where service.id = " + idService                  
+                    + "DATE_PAYMENT > '" +date_start+"' and DATE_PAYMENT < '"+ date_end+"'");
+            session.getTransaction().commit();
+            res = categoryQuery.list();           
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            session.getTransaction().rollback();
+        }
+        return (sumPay(res)>Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
+    
     }
 }
