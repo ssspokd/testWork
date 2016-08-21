@@ -21,11 +21,11 @@ public class Payment {
     private final Date datePayment;
     private final String nameService;    
     private final int idClient;  
-    private final Service service;
+    private final Services service;
     private final String mobileNumber;
   
 
-    public Service getService() {
+    public Services getService() {
         return service;
     }
     
@@ -61,7 +61,7 @@ public class Payment {
         this.statusPayment = statusPayment;
     }
     
-    public Payment(int idClient, Service service, int idPayment,int summPay,Date datePayment, String mobileNumber) {
+    public Payment(int idClient, Services service, int idPayment,int summPay,Date datePayment, String mobileNumber) {
         this.idPayment = idPayment;     
         this.service = service;
         this.nameService =  this.service.getNameService();

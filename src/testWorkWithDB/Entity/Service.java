@@ -41,9 +41,7 @@ public class Service  implements java.io.Serializable {
        this.paymentses = paymentses;
     }
    
-     @Id 
-
-    
+    @Id 
     @Column(name="ID", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -73,7 +71,7 @@ public class Service  implements java.io.Serializable {
         this.maxValue = maxValue;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="service")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="service")
     public Set<Payments> getPaymentses() {
         return this.paymentses;
     }

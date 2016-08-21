@@ -5,6 +5,8 @@
  */
 package testwork;
 
+import util.Config;
+
 /**
  *
  * @author ssspokd

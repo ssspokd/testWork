@@ -9,7 +9,7 @@ package testwork;
  *
  * @author ssspokd
  */
-public class ServiceMTS extends Service
+public class ServiceMTS extends Services
 {
     public ServiceMTS(String nameService) {
         super(nameService);

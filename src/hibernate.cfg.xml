@@ -7,7 +7,7 @@
     <property name="hibernate.connection.url">jdbc:firebirdsql:localhost/3050:test?lc_ctype=WIN1251</property>
     <property name="hibernate.connection.username">sysdba</property>
     <property name="hibernate.connection.password">masterkey</property>
-    <mapping resource="testWorkWithDB/DAO/Service.hbm.xml"/>
-    <mapping resource="testWorkWithDB/DAO/Payments.hbm.xml"/>
+    <mapping resource="testWorkWithDB/Entity/Service.hbm.xml"/>
+    <mapping resource="testWorkWithDB/Entity/Payments.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

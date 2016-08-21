@@ -9,7 +9,7 @@ package testwork;
  *
  * @author ssspokd
  */
-public class ServiceBeeline extends Service{
+public class ServiceBeeline extends Services{
     
     public ServiceBeeline(String nameService) {
         super(nameService);

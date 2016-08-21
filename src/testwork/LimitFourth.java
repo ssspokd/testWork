@@ -5,6 +5,7 @@
  */
 package testwork;
 
+import util.Config;
 import java.util.Collection;
 
 /**

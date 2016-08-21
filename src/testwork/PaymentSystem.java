@@ -5,6 +5,7 @@
  */
 package testwork;
 
+import util.Config;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hibernate.Session;
 import testWorkWithDB.DAO.Payments;
+import testWorkWithDB.DAO.Service;
+import util.DAO;
 
 /**
  *
@@ -27,7 +30,7 @@ public class PaymentSystem {
 
     private int idPayment =  0;
     private final List<Payment> paymentsColl =  new ArrayList<>();
-    private Service mobileService = null;
+    private Services mobileService = null;
     private final int increaseIdPayment = 1;
     private final int lengMobileNumber = 10;
      
@@ -40,25 +43,27 @@ public class PaymentSystem {
          idPayment+=increaseIdPayment;
     }
     
-    public  void CreatePayment(String mobileNumber, int idClient,int sumPay){
-          
+    public  void CreatePayment(String mobileNumber, int idClient,int sumPay){       
         setIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
         paymentsColl.add(payment);
         payment.setStatusPayment(new LimitFourth(paymentsColl, payment).Validate());      
-        payment.Paying();  
-               
+        payment.Paying();           
     }
+    public String validateForLimits(Payment payment,Limits limit){
+        return limit.Validate();
+    }
+    
     public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
         setIdPayment();
-        testWorkWithDB.DAO.Service service = new testWorkWithDB.DAO.Service();
-        Session session =  testWorkWithDB.HibernateUtils.getSessionFactory().openSession();
-        session.beginTransaction();
-        //List<testWorkWithDB.DAO.Service> res = session.createCriteria("select * from SERVICE where NAME_SERVICE = 'МТС'").list();
-        service.setId(1);
-        service.setNameService("МТС");
-        List<Payments> result =  session.createCriteria("Select * from PAYMENTS").list();
-        Payments payments =  new Payments(sumPay, service, idClient, 
+        List<Service>  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(222);
+        Session session =  DAO.getSession();
+        session.beginTransaction();      
+        List<Payments> result =  session.createSQLQuery("Select * from PAYMENTS").list();
+        
+        
+        
+        Payments payments =  new Payments(sumPay, serviceList.get(0) , idClient, 
                 sumPay, new Date(), mobileNumber, mobileNumber);
         session.saveOrUpdate(payments);
         session.getTransaction().commit();
@@ -66,9 +71,7 @@ public class PaymentSystem {
     }
     
     
-    public String validateForLimits(Payment payment,Limits limit){
-        return limit.Validate();
-    }
+    
     
     // 
     public boolean isMobilePhoneNumber(String mobileNumber){        

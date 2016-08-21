@@ -9,10 +9,10 @@ package testwork;
  *
  * @author ssspokd
  */
-public abstract class Service {
+public abstract class Services {
     private final  String nameService;
     
-    public Service(String nameService) {
+    public Services(String nameService) {
         this.nameService = nameService;
     }
 

@@ -5,7 +5,9 @@
  */
 package testwork;
 
+import util.Config;
 import java.util.Collection;
+
 
 /**
  *
@@ -23,7 +25,6 @@ public class LimitsFirst extends Limits
     
     @Override
     protected  String Validate(){
-        
         return ( equalsSumPay() && startTimeEquals()&& stopTimeEquals()?
                 Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
