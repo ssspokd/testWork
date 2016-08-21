@@ -6,7 +6,7 @@
 package testwork;
 
 import util.Config;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -15,7 +15,7 @@ import java.util.Collection;
 public  class LimitThird extends Limits
 {
 
-    public LimitThird(Collection<Payment> payments, Payment payment) {
+    public LimitThird(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
 

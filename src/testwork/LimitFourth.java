@@ -6,7 +6,7 @@
 package testwork;
 
 import util.Config;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -15,7 +15,7 @@ import java.util.Collection;
 public class LimitFourth extends Limits
 {
 
-    public LimitFourth(Collection<Payment> payments, Payment payment) {
+    public LimitFourth(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
 

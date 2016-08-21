@@ -6,7 +6,7 @@
 package testwork;
 
 import util.Config;
-import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -17,7 +17,7 @@ public class LimitsFirst extends Limits
 {
     
     
-    public LimitsFirst(Collection<Payment> payments, Payment payment) {
+    public LimitsFirst(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
     

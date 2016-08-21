@@ -6,7 +6,7 @@
 package testwork;
 
 import util.Config;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -14,9 +14,9 @@ import java.util.Collection;
  */
 public abstract class Limits {
     
-    protected final Collection<Payment> payments;
+    protected final List<Payment> payments;
     protected final Payment payment;
-    public Limits(Collection<Payment> payments, Payment payment) {
+    public Limits(List<Payment> payments, Payment payment) {
         this.payments = payments;
         this.payment = payment;
     }

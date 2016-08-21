@@ -136,7 +136,7 @@ public class PaymentSystem {
         return ret;         
     }
     
-    private String getMobileNumber()
+    private String inputMobileNumber()
     {
         String ret = "";
         BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
@@ -160,7 +160,7 @@ public class PaymentSystem {
         return ret;
     }
     
-    public int getSumPay(Scanner in){
+    public int inputSumPay(Scanner in){
         System.out.println("Enter sum payment");
         int ret = 0;      
         try{
@@ -190,16 +190,16 @@ public class PaymentSystem {
                     if(idClient == -1){
                         continue;
                     }                
-                    String mobilePhoneNumber = getMobileNumber();                    
+                    String mobilePhoneNumber = inputMobileNumber();                    
                     if(mobilePhoneNumber.isEmpty()){
                         continue;
                     }
                     WhoIsOperator(mobilePhoneNumber);               
-                    int sumPay  = getSumPay(in);
+                    int sumPay  = inputSumPay(in);
                     if(sumPay == -1){
                         continue;
                     }
-                    CreatePaymentDB(mobilePhoneNumber, idClient,sumPay);
+                    CreatePayment(mobilePhoneNumber, idClient,sumPay);
                     break;
                 case 3:
                     stop = false;
