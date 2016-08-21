@@ -43,9 +43,7 @@ public class Payments  implements java.io.Serializable {
        this.mobileNumber = mobileNumber;
     }
    
-     @Id 
-
-    
+    @Id    
     @Column(name="ID", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -55,7 +53,7 @@ public class Payments  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="SERVICE_ID", nullable=false)
     public Service getService() {
         return this.service;
