@@ -18,8 +18,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hibernate.Session;
-import testWorkWithDB.DAO.Payments;
-import testWorkWithDB.DAO.Service;
+import testWorkWithDB.Entity.Service;
+import testWorkWithDB.Entity.Payments;
+import testWorkWithDB.PaymentsIMPL;
 import util.DAO;
 
 /**
@@ -56,15 +57,13 @@ public class PaymentSystem {
     
     public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
         setIdPayment();
-        List<Service>  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(222);
+        Service  serviceList =  testWorkWithDB.ServiceIMPl.getInstance().getListService(222);
+        Date currentDate = new Date();
+        String status = PaymentsIMPL.validateFirstLimit(sumPay, currentDate);
         Session session =  DAO.getSession();
-        session.beginTransaction();      
-        List<Payments> result =  session.createSQLQuery("Select * from PAYMENTS").list();
+        session.beginTransaction();     
+        Payments payments = new Payments(sumPay,serviceList,idClient, sumPay, currentDate, status, mobileNumber);
         
-        
-        
-        Payments payments =  new Payments(sumPay, serviceList.get(0) , idClient, 
-                sumPay, new Date(), mobileNumber, mobileNumber);
         session.saveOrUpdate(payments);
         session.getTransaction().commit();
         int s = 0;
@@ -183,8 +182,7 @@ public class PaymentSystem {
                 case 1:
                     ViewerLimits.viewLimits(); 
                     break;
-                case 2:
-                    
+                case 2:                    
                     int idClient = getIdClient(in);
                     if(idClient == -1){
                         continue;

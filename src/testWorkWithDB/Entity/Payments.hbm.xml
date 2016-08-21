@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21.08.2016 0:18:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated 21.08.2016 17:12:33 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="testWorkWithDB.DAO.Payments" table="PAYMENTS" optimistic-lock="version">
+    <class name="testWorkWithDB.Entity.Payments" table="PAYMENTS" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="service" class="testWorkWithDB.DAO.Service" fetch="select">
+        <many-to-one name="service" class="testWorkWithDB.Entity.Service" fetch="select">
             <column name="SERVICE_ID" not-null="true" />
         </many-to-one>
         <property name="clientId" type="int">

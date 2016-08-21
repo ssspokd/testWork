@@ -16,12 +16,11 @@ import java.util.Collection;
 public class LimitsFirst extends Limits
 {
     
-    private final int  timeInConfigStart = Config.FIRST_LIMIT_START_DAY_HOURS*Config.COUNT_MINUTE + Config.FIRST_LIMIT_START_DAY_MINUTE;
-    private final int  timeInConfigStop = Config.FIRST_LIMIT_END_DAY_HOURS*Config.COUNT_MINUTE + Config.FIRST_LIMIT_END_DAY_MINUTE;
     
     public LimitsFirst(Collection<Payment> payments, Payment payment) {
         super(payments, payment);
     }
+    
     
     @Override
     protected  String Validate(){
@@ -30,11 +29,11 @@ public class LimitsFirst extends Limits
     }
     
     private boolean startTimeEquals(){
-        return (currentTimeInMinute() >= timeInConfigStart);
+        return (currentTimeInMinute() >= Config.timeInConfigStart);
     }
     
     private boolean stopTimeEquals(){
-        return (currentTimeInMinute() <  timeInConfigStop);  
+        return (currentTimeInMinute() <  Config.timeInConfigStop);  
     }
     
     private boolean equalsSumPay(){

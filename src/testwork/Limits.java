@@ -22,8 +22,7 @@ public abstract class Limits {
     }
     
     protected int currentTimeInMinute(){
-        return (payment.getDatePayment().getHours() * Config.COUNT_MINUTE) + payment.getDatePayment().getMinutes();
-                
+        return (payment.getDatePayment().getHours() * Config.COUNT_MINUTE + payment.getDatePayment().getMinutes());             
     }
     
     protected int getTimeInPayment(Payment p){

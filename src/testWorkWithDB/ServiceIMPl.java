@@ -8,7 +8,7 @@ package testWorkWithDB;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
-import testWorkWithDB.DAO.Service;
+import testWorkWithDB.Entity.Service;
 import testWorkWithDB.Interfaces.AbstractObjectDB;
 import static util.DAO.getSession;
 
@@ -34,12 +34,12 @@ public class ServiceIMPl extends AbstractObjectDB<Service>
         return instance;
     }
     
-    public List<Service> getListService(int value){
-        List<Service>  ret = new LinkedList<>();
+    public Service getListService(int values){
+        Service ret = null;
         Session session = getSession();
         try{
             session.getTransaction().begin();
-            ret = session.createSQLQuery("select * from SERVICE where   :param3  >= service.min_value and :param3 < service.max_value").setInteger("param3", value).list();   
+            ret =  (Service) session.createCriteria("select * from SERVICE where   " + values + "  >= service.min_value and " +values+ " < service.max_value");   
             session.getTransaction().commit();
         }
         catch(Exception e){

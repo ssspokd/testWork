@@ -38,7 +38,7 @@ public class PaymentSystemTest {
     private final String mobileNumber;
     private final int idClient;
     private final int sumPay;
-    private final Service service;
+    private final Services service;
     private final Date date;
     private final Payment payment;
     private final List<Payment> payments;

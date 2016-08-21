@@ -1,5 +1,5 @@
-package testWorkWithDB.DAO;
-// Generated 21.08.2016 0:18:48 by Hibernate Tools 4.3.1
+package testWorkWithDB.Entity;
+// Generated 21.08.2016 17:12:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,25 +23,30 @@ public class Service  implements java.io.Serializable {
      private int id;
      private String nameService;
      private short maxValue;
-     private Set<Payments> paymentses = new HashSet<Payments>(0);
+     private short minValue;
+     private Set paymentses = new HashSet(0);
 
     public Service() {
     }
 
 	
-    public Service(int id, String nameService, short maxValue) {
+    public Service(int id, String nameService, short maxValue, short minValue) {
         this.id = id;
         this.nameService = nameService;
         this.maxValue = maxValue;
+        this.minValue = minValue;
     }
-    public Service(int id, String nameService, short maxValue, Set<Payments> paymentses) {
+    public Service(int id, String nameService, short maxValue, short minValue, Set paymentses) {
        this.id = id;
        this.nameService = nameService;
        this.maxValue = maxValue;
+       this.minValue = minValue;
        this.paymentses = paymentses;
     }
    
-    @Id 
+     @Id 
+
+    
     @Column(name="ID", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -71,12 +76,22 @@ public class Service  implements java.io.Serializable {
         this.maxValue = maxValue;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="service")
-    public Set<Payments> getPaymentses() {
+    
+    @Column(name="MIN_VALUE", nullable=false)
+    public short getMinValue() {
+        return this.minValue;
+    }
+    
+    public void setMinValue(short minValue) {
+        this.minValue = minValue;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="service")
+    public Set getPaymentses() {
         return this.paymentses;
     }
     
-    public void setPaymentses(Set<Payments> paymentses) {
+    public void setPaymentses(Set paymentses) {
         this.paymentses = paymentses;
     }
 

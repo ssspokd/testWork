@@ -6,27 +6,29 @@
 package testWorkWithDB;
 
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
-import testWorkWithDB.DAO.Payments;
+import testWorkWithDB.Entity.Payments;
 import testWorkWithDB.Interfaces.AbstractObjectDB;
+import util.Config;
 
 /**
  *
  * @author spok
  */
-public class PaymetnsIMPL extends AbstractObjectDB<Payments>
+public class PaymentsIMPL extends AbstractObjectDB<Payments>
 {
     public final static String TABLE_NAME = "PAYMENTS";
-    public PaymetnsIMPL() {
+    public PaymentsIMPL() {
         super(TABLE_NAME);
     }
-    private static PaymetnsIMPL instance = null;
+    private static PaymentsIMPL instance = null;
     
-    public static PaymetnsIMPL getInstance() {
+    public static PaymentsIMPL getInstance() {
         if (instance == null) {
-            instance = new PaymetnsIMPL();
+            instance = new PaymentsIMPL();
         }
 
         return instance;
@@ -44,10 +46,23 @@ public class PaymetnsIMPL extends AbstractObjectDB<Payments>
         }
         return ret;
     }
-   
-    public boolean firstLimitValidate(){
-        
-        
-        return  false;
+    
+  
+
+    public static String  validateFirstLimit(int sum,Date date){
+        return ( sum > Config.FIRST_LIMIT_MAX_MONEY && startTimeEquals(date)&& stopTimeEquals(date)?
+                Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
+    private static  boolean startTimeEquals(Date date){
+        return (getCurrentTimeInMinute(date) >= Config.timeInConfigStart);
+    }
+    
+    private static boolean stopTimeEquals(Date date){
+        return (getCurrentTimeInMinute(date) <  Config.timeInConfigStop);  
+    }
+    
+      public static int getCurrentTimeInMinute(Date date){
+        return (date.getHours() * Config.COUNT_MINUTE + date.getMinutes());             
+    }
+    
 }

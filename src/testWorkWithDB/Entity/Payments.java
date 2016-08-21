@@ -1,5 +1,5 @@
-package testWorkWithDB.DAO;
-// Generated 21.08.2016 0:18:48 by Hibernate Tools 4.3.1
+package testWorkWithDB.Entity;
+// Generated 21.08.2016 17:12:33 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

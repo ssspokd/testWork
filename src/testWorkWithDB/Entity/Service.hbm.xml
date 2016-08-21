@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21.08.2016 0:18:48 by Hibernate Tools 4.3.1 -->
+<!-- Generated 21.08.2016 17:12:33 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="testWorkWithDB.DAO.Service" table="SERVICE" optimistic-lock="version">
+    <class name="testWorkWithDB.Entity.Service" table="SERVICE" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
@@ -14,11 +14,14 @@
         <property name="maxValue" type="short">
             <column name="MAX_VALUE" not-null="true" />
         </property>
+        <property name="minValue" type="short">
+            <column name="MIN_VALUE" not-null="true" />
+        </property>
         <set name="paymentses" table="PAYMENTS" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="SERVICE_ID" not-null="true" />
             </key>
-            <one-to-many class="testWorkWithDB.DAO.Payments" />
+            <one-to-many class="testWorkWithDB.Entity.Payments" />
         </set>
     </class>
 </hibernate-mapping>

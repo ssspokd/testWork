@@ -32,6 +32,10 @@ public class Config {
     public static   final int FIRST_LIMIT_END_DAY_HOURS = 23; // in  hours
     public static   final int FIRST_LIMIT_START_DAY_MINUTE = 0; //in minutes
     public static   final int FIRST_LIMIT_END_DAY_MINUTE = 0; //in minutes
+    public static   final int  timeInConfigStart = FIRST_LIMIT_START_DAY_HOURS*COUNT_MINUTE + FIRST_LIMIT_START_DAY_MINUTE;
+    public static   final int  timeInConfigStop = FIRST_LIMIT_END_DAY_HOURS*COUNT_MINUTE + FIRST_LIMIT_END_DAY_MINUTE;
+    
+    
      //second Limit
     public static   final int SECOND_LIMIT_MAX_MONEY  = 3000;
     public static   final int SECOND_LIMIT_TIME = 60; //in minutes
