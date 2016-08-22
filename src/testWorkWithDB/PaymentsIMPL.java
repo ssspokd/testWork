@@ -57,11 +57,11 @@ public class PaymentsIMPL extends AbstractObjectDB<Payments>
                 Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
     private static  boolean startTimeEquals(Date date){
-        return (getCurrentTimeInMinute(date) >= Config.timeInConfigStart);
+        return (getCurrentTimeInMinute(date) >= Config.FIRST_LIMIT_TIME_IN_START);
     }
     
     private static boolean stopTimeEquals(Date date){
-        return (getCurrentTimeInMinute(date) <  Config.timeInConfigStop);  
+        return (getCurrentTimeInMinute(date) <  Config.FIRST_LIMIT_TIME_END);  
     }
     
       public static int getCurrentTimeInMinute(Date date){

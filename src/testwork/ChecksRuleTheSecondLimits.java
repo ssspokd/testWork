@@ -12,10 +12,10 @@ import java.util.List;
  *
  * @author ssspokd
  */
-public class LimitSecond  extends Limits
+public class ChecksRuleTheSecondLimits  extends ChecksRuleLimits
 {
 
-    public LimitSecond(List<Payment> payments, Payment payment) {
+    public ChecksRuleTheSecondLimits(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
 
@@ -23,7 +23,7 @@ public class LimitSecond  extends Limits
     protected String Validate() {
         int summ = 0;
         for(Payment p: payments){
-           if(TimeDifference(p) < Config.SECOND_LIMIT_TIME){
+           if(timeDifference(p) < Config.SECOND_LIMIT_TIME){
                summ = summ + p.getSummPay();
            }
         }

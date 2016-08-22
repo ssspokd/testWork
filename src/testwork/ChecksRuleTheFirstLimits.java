@@ -13,11 +13,11 @@ import java.util.List;
  *
  * @author ssspokd
  */
-public class LimitsFirst extends Limits
+public class ChecksRuleTheFirstLimits extends ChecksRuleLimits
 {
     
     
-    public LimitsFirst(List<Payment> payments, Payment payment) {
+    public ChecksRuleTheFirstLimits(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
     
@@ -29,11 +29,11 @@ public class LimitsFirst extends Limits
     }
     
     private boolean startTimeEquals(){
-        return (currentTimeInMinute() >= Config.timeInConfigStart);
+        return (currentTimeInMinute() >= Config.FIRST_LIMIT_TIME_IN_START);
     }
     
     private boolean stopTimeEquals(){
-        return (currentTimeInMinute() <  Config.timeInConfigStop);  
+        return (currentTimeInMinute() <  Config.FIRST_LIMIT_TIME_END);  
     }
     
     private boolean equalsSumPay(){

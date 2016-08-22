@@ -40,25 +40,25 @@ public class PaymentSystem {
         return idPayment;
     }
     
-    private void setIdPayment(){
+    private void incrementIdPayment(){
          idPayment+=increaseIdPayment;
     }
     
     ///создание платёжного поручения, все платёжки хрантся в List
     public  void CreatePayment(String mobileNumber, int idClient,int sumPay){       
-        setIdPayment();
+        incrementIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
         paymentsColl.add(payment);
-        payment.setStatusPayment(new LimitFourth(paymentsColl, payment).Validate());      
+        payment.setStatusPayment(new ChecksRuleTheFourthLimits(paymentsColl, payment).Validate());      
         payment.Paying();           
     }
-    public String validateForLimits(Payment payment,Limits limit){
+    public String validateForLimits(Payment payment,ChecksRuleLimits limit){
         return limit.Validate();
     }
     ///реализованна возможность записи платёжных  поручений в БД
     //
     public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
-        setIdPayment();     
+        incrementIdPayment();     
         Date currentDate = new Date();       
         Session session =  DAO.getSession();
         session.beginTransaction();     

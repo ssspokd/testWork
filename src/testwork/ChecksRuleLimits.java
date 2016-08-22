@@ -12,11 +12,12 @@ import java.util.List;
  *
  * @author ssspokd
  */
-public abstract class Limits {
+public abstract class ChecksRuleLimits {
     
     protected final List<Payment> payments;
     protected final Payment payment;
-    public Limits(List<Payment> payments, Payment payment) {
+    
+    public ChecksRuleLimits(List<Payment> payments, Payment payment) {
         this.payments = payments;
         this.payment = payment;
     }
@@ -34,11 +35,9 @@ public abstract class Limits {
         return (p.getIdClient() == payment.getIdClient());
     }
     
-    protected int TimeDifference(Payment p){
+    protected int timeDifference(Payment p){
         return (currentTimeInMinute() - getTimeInPayment(p));
     }
     
-    abstract protected String Validate();   
-    
-    
+    abstract protected String Validate();      
 }

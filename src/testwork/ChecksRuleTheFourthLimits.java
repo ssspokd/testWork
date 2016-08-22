@@ -12,10 +12,10 @@ import java.util.List;
  *
  * @author ssspokd
  */
-public class LimitFourth extends Limits
+public class ChecksRuleTheFourthLimits extends ChecksRuleLimits
 {
 
-    public LimitFourth(List<Payment> payments, Payment payment) {
+    public ChecksRuleTheFourthLimits(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
 
@@ -34,7 +34,7 @@ public class LimitFourth extends Limits
     }
     
     private boolean equalsTimePayments(Payment p){
-        return (TimeDifference(p) < Config.FOURTH_LIMIT_TIME);
+        return (timeDifference(p) < Config.FOURTH_LIMIT_TIME);
     }
     
     private boolean equalsCountAnsSumPay(int countPayment, int sumPay)

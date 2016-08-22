@@ -74,7 +74,7 @@ public class PaymentSystemTest {
     public void testValidateForLimitsFirst() {
         System.out.println("validateForLimits");        
         ///
-        Limits limit = new LimitsFirst(payments, payment);  
+        ChecksRuleLimits limit = new ChecksRuleTheFirstLimits(payments, payment);  
         String expResult = "ready to host";
         String result = instance.validateForLimits(payment, limit);
         assertEquals(expResult, result);
@@ -85,9 +85,9 @@ public class PaymentSystemTest {
     @Test
     public void testValidateForLimitsSecond() {
         System.out.println("validateForLimitsSecond");  
-        Limits limit = new LimitsFirst(payments, payment);  
+        ChecksRuleLimits limit = new ChecksRuleTheFirstLimits(payments, payment);  
         String expResult = "ready to host";
-        limit = new LimitSecond(payments, payment);             
+        limit = new ChecksRuleTheSecondLimits(payments, payment);             
         String result = instance.validateForLimits(payment, limit);
         assertEquals(expResult, result);
            
@@ -96,11 +96,13 @@ public class PaymentSystemTest {
     @Test
     public void testValidateForLimitsFirstSecond() {
         System.out.println("validateForLimitsFirstSecond");  
-        Limits limit = new LimitsFirst(payments, payment);  
+        ChecksRuleLimits limit = new ChecksRuleTheFirstLimits(payments, payment);  
         String expResult = "ready to host";
-        limit = new LimitSecond(payments, payment);             
+        limit = new ChecksRuleTheSecondLimits(payments, payment);             
         String result = instance.validateForLimits(payment, limit);
-        limit = new LimitsFirst(payments, payment);
+        assertEquals(expResult, result);
+        ///
+        limit = new ChecksRuleTheFirstLimits(payments, payment);
         result = instance.validateForLimits(payment, limit);
         assertEquals(expResult, result);         
     }

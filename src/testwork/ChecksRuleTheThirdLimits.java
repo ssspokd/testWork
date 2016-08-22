@@ -12,10 +12,10 @@ import java.util.List;
  *
  * @author ssspokd
  */
-public  class LimitThird extends Limits
+public  class ChecksRuleTheThirdLimits extends ChecksRuleLimits
 {
 
-    public LimitThird(List<Payment> payments, Payment payment) {
+    public ChecksRuleTheThirdLimits(List<Payment> payments, Payment payment) {
         super(payments, payment);
     }
 
@@ -28,7 +28,8 @@ public  class LimitThird extends Limits
                 countPayment++;
             }
         }
-        return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED); 
+        return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:
+                Config.LIMIT_IS_EXCEEDED); 
     }
     
     private boolean equalsDatePayment(Payment p){
