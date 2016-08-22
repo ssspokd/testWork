@@ -39,5 +39,36 @@ public abstract class ChecksRuleLimits {
         return (currentTimeInMinute() - getTimeInPayment(p));
     }
     
-    abstract protected String Validate();      
+    abstract protected String Validate();
+    ///
+     protected boolean startTimeEquals(){
+        return (currentTimeInMinute() >= Config.FIRST_LIMIT_TIME_IN_START);
+    }
+    
+    protected boolean stopTimeEquals(){
+        return (currentTimeInMinute() <  Config.FIRST_LIMIT_TIME_END);  
+    }
+    
+    protected boolean equalsSumPay(){
+        return (payment.getSummPay() > Config.FIRST_LIMIT_MAX_MONEY);
+    }
+    
+    ///second
+    protected boolean equalsTimePayments(Payment p){
+        return (timeDifference(p) < Config.FOURTH_LIMIT_TIME);
+    }
+    
+    protected boolean equalsCountAnsSumPay(int countPayment, int sumPay)
+    {
+        return (countPayment > Config.FOURH_LIMIT_COUNT_PAYMENT || sumPay > Config.FOURTH_LIMIT_MAX_MONEY);
+    }
+    
+    ///third
+    protected boolean equalsDatePayment(Payment p){
+        return (p.getDatePayment().getDate() == payment.getDatePayment().getDate());
+    }
+    
+    protected boolean equalsNameServicePayment(Payment p){
+        return  (p.getNameService().equals(payment.getNameService()));
+    }
 }

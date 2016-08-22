@@ -31,12 +31,4 @@ public  class ChecksRuleTheThirdLimits extends ChecksRuleLimits
         return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:
                 Config.LIMIT_IS_EXCEEDED); 
     }
-    
-    private boolean equalsDatePayment(Payment p){
-        return (p.getDatePayment().getDate() == payment.getDatePayment().getDate());
-    }
-    
-    private boolean equalsNameServicePayment(Payment p){
-        return  (p.getNameService().equals(payment.getNameService()));
-    }
 }

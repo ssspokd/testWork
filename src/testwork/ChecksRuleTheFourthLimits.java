@@ -33,12 +33,5 @@ public class ChecksRuleTheFourthLimits extends ChecksRuleLimits
         return(equalsCountAnsSumPay(countPayment, sumPay)?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
     
-    private boolean equalsTimePayments(Payment p){
-        return (timeDifference(p) < Config.FOURTH_LIMIT_TIME);
-    }
     
-    private boolean equalsCountAnsSumPay(int countPayment, int sumPay)
-    {
-        return (countPayment > Config.FOURH_LIMIT_COUNT_PAYMENT || sumPay > Config.FOURTH_LIMIT_MAX_MONEY);
-    }
 }
