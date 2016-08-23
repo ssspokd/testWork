@@ -72,5 +72,5 @@ public abstract class ChecksRuleLimits {
     }
     
     abstract boolean ValidateForLimit(Payment p);
-    abstract boolean  ValidateForLimit();
+    abstract boolean ValidateForLimit();
 }

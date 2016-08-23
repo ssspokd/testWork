@@ -5,7 +5,7 @@
  */
 package testwork;
 
-import util.Config;
+
 import java.util.List;
 
 
@@ -18,7 +18,7 @@ public class ChecksRuleTheFirstLimits extends ChecksRuleLimits
 
     @Override
     boolean ValidateForLimit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     
