@@ -71,7 +71,7 @@ public class Payment {
         this.mobileNumber = mobileNumber;
     }
     
-    public void Paying(){     
+    public void paying(){     
         System.out.println("Number payment document "  + idPayment);
         System.out.println("Payment in the amount of:" + this.summPay + " mobile number:" + 
                 mobileNumber +  " mobile operator:"+service.getNameService());

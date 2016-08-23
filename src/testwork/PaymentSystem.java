@@ -45,19 +45,19 @@ public class PaymentSystem {
     }
     
     ///создание платёжного поручения, все платёжки хрантся в List
-    public  void CreatePayment(String mobileNumber, int idClient,int sumPay){       
+    public  void createPayment(String mobileNumber, int idClient,int sumPay){       
         incrementIdPayment();
         Payment payment =  new Payment(idClient, mobileService , getIdPayment(),sumPay, new Date(), mobileNumber);
         paymentsColl.add(payment);
-        payment.setStatusPayment(new ChecksRuleTheFourthLimits(paymentsColl, payment).Validate());      
-        payment.Paying();           
+        payment.setStatusPayment(validateForLimits(payment, new ChecksRuleTheFirstLimits(paymentsColl)));      
+        payment.paying();           
     }
     public String validateForLimits(Payment payment,ChecksRuleLimits limit){
-        return limit.Validate();
+        return (limit.ValidateForLimit(payment)?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
     }
     ///реализованна возможность записи платёжных  поручений в БД
     //
-    public  void CreatePaymentDB(String mobileNumber, int idClient,int sumPay){
+    public  void createPaymentDB(String mobileNumber, int idClient,int sumPay){
         incrementIdPayment();     
         Date currentDate = new Date();       
         Session session =  DAO.getSession();
@@ -84,7 +84,7 @@ public class PaymentSystem {
         return m.matches();
     }
     
-    private void WhoIsOperator(String mobileNumber){
+    private void whoIsOperator(String mobileNumber){
        String str = mobileNumber.substring(0, 3);
        int numOper = (Integer.valueOf(str));
        if(numOper <= Config.BEELINE)
@@ -115,7 +115,7 @@ public class PaymentSystem {
         return isValid;
     }
     
-    private void PrintFirstScreen(){
+    private void printFirstScreen(){
         System.out.println("1. View limits");
         System.out.println("2. Createp payment");
         System.out.println("3. Exit");
@@ -179,7 +179,7 @@ public class PaymentSystem {
         Scanner in =  new Scanner(System.in);
         boolean stop = true;
         while(stop){
-        PrintFirstScreen();
+        printFirstScreen();
         int a =  in.nextInt();  
             switch (a) {
                 case 1:
@@ -194,12 +194,12 @@ public class PaymentSystem {
                     if(mobilePhoneNumber.isEmpty()){
                         continue;
                     }
-                    WhoIsOperator(mobilePhoneNumber);               
+                    whoIsOperator(mobilePhoneNumber);               
                     int sumPay  = inputSumPay(in);
                     if(sumPay == -1){
                         continue;
                     }
-                    CreatePayment(mobilePhoneNumber, idClient,sumPay);
+                    createPayment(mobilePhoneNumber, idClient,sumPay);
                     break;
                 case 3:
                     stop = false;

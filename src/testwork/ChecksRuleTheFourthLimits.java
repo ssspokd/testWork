@@ -15,12 +15,12 @@ import java.util.List;
 public class ChecksRuleTheFourthLimits extends ChecksRuleLimits
 {
 
-    public ChecksRuleTheFourthLimits(List<Payment> payments, Payment payment) {
-        super(payments, payment);
+    public ChecksRuleTheFourthLimits(List<Payment> payments) {
+        super(payments);
     }
 
     @Override
-    protected String Validate() {
+    boolean ValidateForLimit() {
         int countPayment = 0;
         int sumPay = 0; 
         for(Payment p : payments){
@@ -30,7 +30,12 @@ public class ChecksRuleTheFourthLimits extends ChecksRuleLimits
                     sumPay = sumPay + p.getSummPay();
                 }
             }
-        return(equalsCountAnsSumPay(countPayment, sumPay)?Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
+        return(equalsCountAnsSumPay(countPayment, sumPay));
+    }
+
+    @Override
+    boolean ValidateForLimit(Payment p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

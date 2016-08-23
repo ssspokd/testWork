@@ -15,14 +15,13 @@ import java.util.List;
 public abstract class ChecksRuleLimits {
     
     protected final List<Payment> payments;
-    protected final Payment payment;
-    
-    public ChecksRuleLimits(List<Payment> payments, Payment payment) {
-        this.payments = payments;
-        this.payment = payment;
+    protected final Payment payment  = null;
+
+    public ChecksRuleLimits(List<Payment> payments) {
+        this.payments = payments;     
     }
     
-    protected int currentTimeInMinute(){
+    protected int currentTimeInMinute(Payment payment){
         return (payment.getDatePayment().getHours() * Config.COUNT_MINUTE + payment.getDatePayment().getMinutes());             
     }
     
@@ -36,20 +35,20 @@ public abstract class ChecksRuleLimits {
     }
     
     protected int timeDifference(Payment p){
-        return (currentTimeInMinute() - getTimeInPayment(p));
+        return (currentTimeInMinute(p) - getTimeInPayment(p));
     }
     
-    abstract protected String Validate();
+    
     ///
-     protected boolean startTimeEquals(){
-        return (currentTimeInMinute() >= Config.FIRST_LIMIT_TIME_IN_START);
+     protected boolean startTimeEquals(Payment p){
+        return (currentTimeInMinute(p) >= Config.FIRST_LIMIT_TIME_IN_START);
     }
     
-    protected boolean stopTimeEquals(){
-        return (currentTimeInMinute() <  Config.FIRST_LIMIT_TIME_END);  
+    protected boolean stopTimeEquals(Payment p){
+        return (currentTimeInMinute(p) <  Config.FIRST_LIMIT_TIME_END);  
     }
     
-    protected boolean equalsSumPay(){
+    protected boolean equalsSumPay(Payment payment){
         return (payment.getSummPay() > Config.FIRST_LIMIT_MAX_MONEY);
     }
     
@@ -71,4 +70,7 @@ public abstract class ChecksRuleLimits {
     protected boolean equalsNameServicePayment(Payment p){
         return  (p.getNameService().equals(payment.getNameService()));
     }
+    
+    abstract boolean ValidateForLimit(Payment p);
+    abstract boolean  ValidateForLimit();
 }

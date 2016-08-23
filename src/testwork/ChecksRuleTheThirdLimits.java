@@ -15,12 +15,12 @@ import java.util.List;
 public  class ChecksRuleTheThirdLimits extends ChecksRuleLimits
 {
 
-    public ChecksRuleTheThirdLimits(List<Payment> payments, Payment payment) {
-        super(payments, payment);
+    public ChecksRuleTheThirdLimits(List<Payment> payments) {
+        super(payments);
     }
 
     @Override
-    protected String Validate() {
+    boolean ValidateForLimit() {
         int countPayment = 0;
         for(Payment p: payments){
             if(equalsDatePayment(p) && equalsIDClient(p)&& equalsNameServicePayment(p))
@@ -28,7 +28,11 @@ public  class ChecksRuleTheThirdLimits extends ChecksRuleLimits
                 countPayment++;
             }
         }
-        return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT?Config.LIMIT_IS_NOT_EXCEEDED:
-                Config.LIMIT_IS_EXCEEDED); 
+        return (countPayment <= Config.THIRD_LIMIT_COUNT_PAYMENT); 
+    }
+
+    @Override
+    boolean ValidateForLimit(Payment p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

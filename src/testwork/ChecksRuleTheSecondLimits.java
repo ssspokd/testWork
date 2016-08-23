@@ -15,20 +15,26 @@ import java.util.List;
 public class ChecksRuleTheSecondLimits  extends ChecksRuleLimits
 {
 
-    public ChecksRuleTheSecondLimits(List<Payment> payments, Payment payment) {
-        super(payments, payment);
+    public ChecksRuleTheSecondLimits(List<Payment> payments) {
+        super(payments);
     }
 
     @Override
-    protected String Validate() {
+    boolean ValidateForLimit(Payment p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+
+    @Override
+    boolean ValidateForLimit() {
         int summ = 0;
-        for(Payment p: payments){
-           if(timeDifference(p) < Config.SECOND_LIMIT_TIME){
-               summ = summ + p.getSummPay();
+        for(Payment p1: payments){
+           if(timeDifference(p1) < Config.SECOND_LIMIT_TIME){
+               summ = summ + p1.getSummPay();
            }
         }
-         return (summ <= Config.SECOND_LIMIT_MAX_MONEY?Config.LIMIT_IS_NOT_EXCEEDED:Config.LIMIT_IS_EXCEEDED);
-    }
+         return (summ <= Config.SECOND_LIMIT_MAX_MONEY);
+     }
     
     
 }

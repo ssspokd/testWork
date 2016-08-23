@@ -24,7 +24,7 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     }
 
     @Override
-    public void UpdateObject(T t) throws SQLException {
+    public void updateObject(T t) throws SQLException {
         Session session = getSession();
 	try {
             org.hibernate.Transaction tx  = beginTransaction();
@@ -38,7 +38,7 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     }
 
     @Override
-    public void UpdateOrInsertObject(T t) throws SQLException {
+    public void updateOrInsertObject(T t) throws SQLException {
         Session session = getSession();
         try {
             org.hibernate.Transaction tx  = beginTransaction();
@@ -51,7 +51,7 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     }
 
     @Override
-    public void DeleteObject(T t) throws SQLException {
+    public void deleteObject(T t) throws SQLException {
         Session session = getSession();
         try {          
             org.hibernate.Transaction tx  = beginTransaction();

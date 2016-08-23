@@ -15,17 +15,21 @@ import java.util.List;
  */
 public class ChecksRuleTheFirstLimits extends ChecksRuleLimits
 {
-    
-    
-    public ChecksRuleTheFirstLimits(List<Payment> payments, Payment payment) {
-        super(payments, payment);
+
+    @Override
+    boolean ValidateForLimit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
+    public ChecksRuleTheFirstLimits(List<Payment> payments) {
+        super(payments);
+    }
+   
+
     @Override
-    protected  String Validate(){
-        return ( equalsSumPay() && startTimeEquals()&& stopTimeEquals()?
-                Config.LIMIT_IS_EXCEEDED:Config.LIMIT_IS_NOT_EXCEEDED);
+    boolean ValidateForLimit(Payment p) {
+        return (equalsSumPay(p) && startTimeEquals(p)&& stopTimeEquals(p));
     }
 }
 
