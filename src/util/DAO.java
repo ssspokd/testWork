@@ -63,7 +63,10 @@ public class DAO {
         }
         DAO.session.set(null);
     }
-
+    
+    
+   
+    
     public static void close() {
         getSession().close();
         DAO.session.set(null);

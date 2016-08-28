@@ -7,6 +7,8 @@
     <property name="hibernate.connection.url">jdbc:firebirdsql:localhost/3050:test?lc_ctype=WIN1251</property>
     <property name="hibernate.connection.username">sysdba</property>
     <property name="hibernate.connection.password">masterkey</property>
+    <property name="hibernate.transaction.auto_close_session">true</property>
+    
     <mapping resource="testWorkWithDB/Entity/Payments.hbm.xml"/>
     <mapping resource="testWorkWithDB/Entity/Service.hbm.xml"/>
   </session-factory>

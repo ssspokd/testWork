@@ -67,10 +67,14 @@ public  abstract class AbstractObjectDB<T> extends DAO implements ObjectDB<T>
     public void insert(T t) throws SQLException {
         Session session = getSession();
 	try {         
-            org.hibernate.Transaction tx  = beginTransaction();
+            org.hibernate.Transaction tx  = beginTransaction();         
             tx.begin();          
             session.save(t);
             session.getTransaction().commit();
+            tx.commit();
+            
+            //commit();
+            session.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }     
