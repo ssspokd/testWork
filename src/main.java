@@ -6,12 +6,10 @@
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import testwork.PaymentSystem;
+import java.security.cert.*;
 
 /**
  *
@@ -22,9 +20,18 @@ public class main {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeyStoreException {
         // TODO code application logic here       
-       PaymentSystem paymentSystem  =  new PaymentSystem();
+      PaymentSystem paymentSystem  =  new PaymentSystem();
        paymentSystem.start();
+       KeyStore keyStore  = KeyStore.getInstance("  ");
+       java.security.cert.Certificate certificate =   keyStore.getCertificate(" ");
+      int x = 1, m = 1;
+      while(x<10){
+          x = x +1;
+          m = m*x;
+      }
+        System.out.println(m);
     }
+    //private final ObjectCodeTemplate template; 
 }
